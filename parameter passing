@@ -1,0 +1,35 @@
+// Passing by value
+
+#include <stdio.h>
+
+// Function that takes an integer value
+void increment(int a) {
+    a = a + 1;
+    printf("Inside function: %d\n", a);
+}
+
+int main() {
+    int x = 5;
+    increment(x);
+    printf("Outside function: %d\n", x); // x remains unaltered
+    return 0;
+}
+
+
+
+
+// Passing by reference
+#include <stdio.h>
+
+// Function that takes a pointer to an integer
+void increment(int *a) {
+    *a = *a + 1;
+    printf("Inside function: %d\n", *a);
+}
+
+int main() {
+    int x = 5;
+    increment(&x);
+    printf("Outside function: %d\n", x); // x is altered
+    return 0;
+}
