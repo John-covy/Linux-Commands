@@ -1,0 +1,220 @@
+# BEFORE....OPTIMIZING THE MAIN PART OF THE CODE
+class Student:
+    def __init__(self, student_id, name):
+        self.student_id = student_id
+        self.name = name
+        self.fees_paid = 0
+        self.transcript = {}
+        self.lessons = []
+
+    def pay_fees(self, amount):
+        self.fees_paid += amount
+        print(f"{self.name} has paid {amount}. Total fees paid: {self.fees_paid}")
+
+    def add_grade(self, course, grade):
+        self.transcript[course] = grade
+        print(f"Added grade for {self.name}: {course} - {grade}")
+
+    def add_lesson(self, lesson):
+        self.lessons.append(lesson)
+        print(f"Added lesson for {self.name}: {lesson}")
+
+    def display_info(self):
+        print(f"Student ID: {self.student_id}")
+        print(f"Name: {self.name}")
+        print(f"Fees Paid: {self.fees_paid}")
+        print("Transcript:")
+        for course, grade in self.transcript.items():
+            print(f"{course}: {grade}")
+        print("Lessons:")
+        for lesson in self.lessons:
+            print(lesson)
+
+class CampusManagement:
+    def __init__(self):
+        self.students = {}
+
+    def add_student(self, student_id, name):
+        if student_id in self.students:
+            print("Student already exists.")
+        else:
+            self.students[student_id] = Student(student_id, name)
+            print(f"Added student: {name}")
+
+    def get_student(self, student_id):
+        return self.students.get(student_id, None)
+
+def main():
+    campus = CampusManagement()
+    while True:
+        print("\n1. Add Student")
+        print("2. Pay Fees")
+        print("3. Add Grade")
+        print("4. Add Lesson")
+        print("5. Display Student Info")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            student_id = input("Enter student ID: ")
+            name = input("Enter student name: ")
+            campus.add_student(student_id, name)
+        elif choice == '2':
+            student_id = input("Enter student ID: ")
+            amount = float(input("Enter amount to pay: "))
+            student = campus.get_student(student_id)
+            if student:
+                student.pay_fees(amount)
+            else:
+                print("Student not found.")
+        elif choice == '3':
+            student_id = input("Enter student ID: ")
+            course = input("Enter course name: ")
+            grade = input("Enter grade: ")
+            student = campus.get_student(student_id)
+            if student:
+                student.add_grade(course, grade)
+            else:
+                print("Student not found.")
+        elif choice == '4':
+            student_id = input("Enter student ID: ")
+            lesson = input("Enter lesson: ")
+            student = campus.get_student(student_id)
+            if student:
+                student.add_lesson(lesson)
+            else:
+                print("Student not found.")
+        elif choice == '5':
+            student_id = input("Enter student ID: ")
+            student = campus.get_student(student_id)
+            if student:
+                student.display_info()
+            else:
+                print("Student not found.")
+        elif choice == '6':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+   # AFTER OPTIMIZING THE MAIN PART
+
+class Student:
+    def __init__(self, student_id, name):
+        self.student_id = student_id
+        self.name = name
+        self.fees_paid = 0
+        self.transcript = {}
+        self.lessons = []
+
+    def pay_fees(self, amount):
+        self.fees_paid += amount
+        print(f"{self.name} has paid {amount}. Total fees paid: {self.fees_paid}")
+
+    def add_grade(self, course, grade):
+        self.transcript[course] = grade
+        print(f"Added grade for {self.name}: {course} - {grade}")
+
+    def add_lesson(self, lesson):
+        self.lessons.append(lesson)
+        print(f"Added lesson for {self.name}: {lesson}")
+
+    def display_info(self):
+        print(f"Student ID: {self.student_id}")
+        print(f"Name: {self.name}")
+        print(f"Fees Paid: {self.fees_paid}")
+        print("Transcript:")
+        for course, grade in self.transcript.items():
+            print(f"{course}: {grade}")
+        print("Lessons:")
+        for lesson in self.lessons:
+            print(lesson)
+
+class CampusManagement:
+    def __init__(self):
+        self.students = {}
+
+    def add_student(self, student_id, name):
+        if student_id in self.students:
+            print("Student already exists.")
+        else:
+            self.students[student_id] = Student(student_id, name)
+            print(f"Added student: {name}")
+
+    def get_student(self, student_id):
+        return self.students.get(student_id, None)
+
+def add_student(campus):
+    student_id = input("Enter student ID: ")
+    name = input("Enter student name: ")
+    campus.add_student(student_id, name)
+
+def pay_fees(campus):
+    student_id = input("Enter student ID: ")
+    amount = float(input("Enter amount to pay: "))
+    student = campus.get_student(student_id)
+    if student:
+        student.pay_fees(amount)
+    else:
+        print("Student not found.")
+
+def add_grade(campus):
+    student_id = input("Enter student ID: ")
+    course = input("Enter course name: ")
+    grade = input("Enter grade: ")
+    student = campus.get_student(student_id)
+    if student:
+        student.add_grade(course, grade)
+    else:
+        print("Student not found.")
+
+def add_lesson(campus):
+    student_id = input("Enter student ID: ")
+    lesson = input("Enter lesson: ")
+    student = campus.get_student(student_id)
+    if student:
+        student.add_lesson(lesson)
+    else:
+        print("Student not found.")
+
+def display_student_info(campus):
+    student_id = input("Enter student ID: ")
+    student = campus.get_student(student_id)
+    if student:
+        student.display_info()
+    else:
+        print("Student not found.")
+
+def main():
+    campus = CampusManagement()
+    actions = {
+        '1': add_student,
+        '2': pay_fees,
+        '3': add_grade,
+        '4': add_lesson,
+        '5': display_student_info,
+    }
+    while True:
+        print("\n1. Add Student")
+        print("2. Pay Fees")
+        print("3. Add Grade")
+        print("4. Add Lesson")
+        print("5. Display Student Info")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '6':
+            break
+        action = actions.get(choice)
+        if action:
+            action(campus)
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
